@@ -200,9 +200,9 @@ $result = mysqli_query($db,$sql);
                         <div class="box-footer">
                             <div class="row">
                                 <!-- /.col -->
-                                <div class="col-sm-4">
+                                <div class="col-md-4 col-md-offset-4">
                                     <div class="description-block">
-                                        <a href="enrollsub.php?id=<?=$data['student_ID']?>" class="btn btn-success btn-flat margin" onclick="return confirm('Are Sure Want To Enroll As <?php echo  ucwords ($data['name']) ?>?');">Enroll Me</a>
+                                        <a href="enrollsub.php?id=<?=$data['student_ID']?>" class="btn btn-info btn-flat margin" onclick="return confirm('Are Sure Want To Enroll As <?php echo  ucwords ($data['name']) ?>?');">Enroll Me</a>
                                     </div>
                                     <!-- /.description-block -->
                                 </div>
