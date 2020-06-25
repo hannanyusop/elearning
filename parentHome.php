@@ -1,4 +1,14 @@
-\<?php require "parent_auth.php"; ?>
+<?php require "parent_auth.php"; ?>
+<?php
+require "config.php";
+
+$parent= $auth["parent_ID"];
+
+$sql = "SELECT * FROM student WHERE parent_ID= $parent";
+$result = mysqli_query($db,$sql);
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,92 +142,91 @@
     </aside>
     <!-- =============================================== -->
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                List of Children
-            </h1>
-            <br>
-            WELCOME <?php echo "" .  ucwords($auth['name']); ?>
-            <form action="addchild_process.php" method="post">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title"></h3>
-                            </div>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
-                                Add Children
-                            </button>
-                            <div class="modal modal-success fade" id="modal-success">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title">Add Children</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input name="name" class="form-control" id="title" placeholder="Name">
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label>Age</label>
-                                                <input name="age" class="form-control" id="title" placeholder="Age ex 8 years">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="submit" class="btn btn-outline">Save changes</button>
+
+        <div style="margin: 15px">
+            WELCOME <?php echo "" .  ucwords($auth['name']); ?><br>
+            <h3>List of Children</h3>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <form action="addchild_process.php" method="post">
+                        <div class="modal modal-success fade" id="modal-success">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Add Children</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input name="name" class="form-control" id="title" placeholder="Name">
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Age</label>
+                                            <input name="age" class="form-control" id="title" placeholder="Age ex 8 years">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                        <button type="submit" name="submit" class="btn btn-outline">Save changes</button>
+                                    </div>
                                 </div>
-                                <!-- /.modal-dialog -->
+                                <!-- /.modal-content -->
                             </div>
-            </form>
-            <!-- phpshowdata -->
-            <?php
-            require "config.php";
-
-            $parent= $auth["parent_ID"];
-
-            $sql = "SELECT * FROM student WHERE parent_ID= $parent";
-            $result = mysqli_query($db,$sql);
-            if ($result == TRUE){
-
-            ?>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <table class="table table-bordered">
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Fullname</th>
-                        <th>Age</th>
-                        <th>Enroll Subject</th>
-                    </tr>
-                    <?php
-                    $no = 0;
-                    while ($data = mysqli_fetch_array ($result))
-                    {
-                        ?>
-                        <tr>
-                            <td><?php echo ++$no;?></td>
-                            <td><?php echo ucwords($data['fullname'])?></td>
-                            <td><?php echo $data['age']?></td>
-                            <?php  echo '<td>  
-                  <a href="enrollsub.php?id='.$data['student_ID'].'"> '?>
-                            <button type = "button"  onclick="return confirm('Are Sure Want To Enroll As <?php echo  ucwords ($data['name']) ?>?');" class="btn-success btn-flat margin"> Enroll Me </button></a></td>
-                        </tr> <?php } ?>
-                </table>
-                <?php } else {
-                    echo "() Result";
-                }
-                $db -> close();
-                ?>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    </form>
+                </div>
             </div>
+            <div class="row">
+
+                <?php while ($data = mysqli_fetch_array ($result)) { ?>
+                <div class="col-md-4">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-aqua-active">
+                            <h3 class="widget-user-username"><?php echo ucwords($data['fullname'])?></h3>
+                            <h5 class="widget-user-desc"><?= $data['age']?> Years Old</h5>
+                        </div>
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png" alt="User Avatar">
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <a href="enrollsub.php?id=<?=$data['student_ID']?>" class="btn btn-success btn-flat margin" onclick="return confirm('Are Sure Want To Enroll As <?php echo  ucwords ($data['name']) ?>?');">Enroll Me</a>
+                                    </div>
+                                    <!-- /.description-block -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+                <?php } ?>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-success">Add Children</button>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="content-header">
+
+            <!-- phpshowdata -->
+
     </div>
 </div>
 </div>
