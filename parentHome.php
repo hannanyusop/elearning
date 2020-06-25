@@ -124,8 +124,7 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li><a href="parentHome.php"><i class="fa fa-book"></i> <span>Children Enroll</span></a></li>
-                <li><a href="#"><i class="fa fa-book"></i> <span>Children Details</span></a></li>
-                <li><a href="children.php"><i class="fa fa-book"></i> <span>Children Progress</span></a></li>
+                <li><a href="progress.php"><i class="fa fa-book"></i> <span>Children Progress</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
