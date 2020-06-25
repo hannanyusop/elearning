@@ -24,6 +24,7 @@
 
     if(isset($_GET['name']) && isset($_GET['id'])){
 
+        $id= $_GET['id'];
         $name = $_GET['name'];
 
         $sql = "SELECT * FROM subject WHERE name='$name'";
@@ -73,20 +74,62 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
 
-        <div class="col-lg">
 
-            <?php while($data = mysqli_fetch_array($result)){ ?>
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3><?= $data['name'] ?></h3>
-                    <p><?= $data['level']?></p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-line-chart"></i>
-                </div>
-                <a href="subject-lesson.php?id=<?= $_GET['id'] ?>&name=<?= $name ?>&subject_id=<?= $data['subject_ID'] ?>" class="small-box-footer">More Info</a>
-            </div>
-            <?php } ?>
+          <div class="row docs-premium-template">
+              <?php while($data = mysqli_fetch_array($result)){ ?>
+                <div class="col-sm-12 col-md-6">
+                  <div class="box box-solid">
+                      <div class="box-body">
+                          <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
+                              <?= $data['name'] ?> LEVEL : <?= $data['level']?>
+                          </h4>
+                          <div class="media">
+                              <div class="media-body">
+                                  <div class="clearfix">
+                                      <p class="pull-right">
+                                          <a href="subject-lesson.php?id=<?= $_GET['id'] ?>&name=<?= $name ?>&subject_id=<?= $data['subject_ID'] ?>" class="btn btn-success btn-sm ad-click-event">
+                                              Go To Lesson
+                                          </a>
+                                      </p>
+
+                                      <?php
+                                        $lesson_q = mysqli_query($db,"SELECT * FROM lesson WHERE subject_ID=$data[subject_ID]");
+                                        $num_lesson = mysqli_num_rows($lesson_q);
+
+                                        //get if user alredy enrolled
+                                        $enrolled_q = mysqli_query($db, "SELECT * FROM enrolls WHERE subject_ID=$data[subject_ID] AND student_ID=$id");
+                                        $is_enrolled = false;
+
+                                        if(mysqli_num_rows($enrolled_q) > 0){
+                                            #enrolled
+                                            $is_enrolled = true;
+                                            #get total complete
+                                            $completed_q = mysqli_query($db, "SELECT * FROM enrolls WHERE subject_ID=$data[subject_ID] AND student_ID=$id AND completed=1");
+                                            $num_completed = mysqli_num_rows($completed_q);
+
+                                            $percentage = ($num_completed/$num_lesson)*100;
+                                        }
+                                      ?>
+
+                                      <h4 style="margin-top: 0">Total Lesson : <?= $num_lesson ?></h4>
+                                      <?php if($is_enrolled){ ?>
+                                      <p>Progress (<?= $num_completed." of ".$num_lesson." completed" ?>)</p>
+                                      <div class="progress xs">
+                                          <div class="progress-bar progress-bar-green" style="width: <?= $percentage ?>%;"></div>
+                                      </div>
+                                      <?php }else{ ?>
+                                          <p>Not enroll Yet</p>
+                                      <?php } ?>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <?php } ?>
+          </div>
+
+        <div class="col-lg">
 
             <a href="enrollsub.php?id=<?= $_GET['id'] ?>" class="btn btn-warning">Back</a>
       </section>
