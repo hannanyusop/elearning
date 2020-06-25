@@ -137,7 +137,7 @@
                 List of Children
             </h1>
             <br>
-            WELCOME <?php echo "" .  ucwords($auth['fullname']); ?>
+            WELCOME <?php echo "" .  ucwords($auth['name']); ?>
             <form action="addchild_process.php" method="post">
                 <div class="row">
                     <div class="col-md-12">
@@ -205,7 +205,7 @@
                         ?>
                         <tr>
                             <td><?php echo ++$no;?></td>
-                            <td><?php echo ucwords($data['name'])?></td>
+                            <td><?php echo ucwords($data['fullname'])?></td>
                             <td><?php echo $data['age']?></td>
                             <?php  echo '<td>  
                   <a href="enrollsub.php?id='.$data['student_ID'].'"> '?>

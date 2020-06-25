@@ -40,6 +40,40 @@
         $result = mysqli_query($db, "SELECT * FROM lesson WHERE subject_ID='$subject_id'");
 
 
+
+        //get enrolled subject
+        $enrolled = mysqli_query($db, "SELECT * FROM enrolls WHERE student_ID=$id AND subject_ID=$subject_id");
+
+        //enroll subject
+        if(isset($_GET['enroll'])){
+
+            if(mysqli_num_rows($enrolled) > 0){
+                echo "<script>alert('Already enrolled this subject!');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
+            }
+
+            $error = false;
+
+            while ($les = mysqli_fetch_array($result)){
+
+                $l_id = $les['lesson_ID'];
+
+                $insert = mysqli_query($db, "INSERT INTO enrolls (student_ID,subject_ID,lesson_ID,completed) VALUES($id,$subject_id,$l_id, 0)");
+
+                if(!$insert){
+                    $error = true;
+                }
+            }
+
+            if($error){
+                echo "<script>alert('Error! Expected database error.');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
+            }else{
+                echo "<script>alert('Successfully enrolled subject!');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
+            }
+
+        }
+
+
+
     }else{
         echo "<script>alert('Invalid parameter!');window.location='parentHome.php'</script>";
     }
@@ -85,6 +119,8 @@
 
                           <h4>Lesson List</h4>
 
+                          <?php if(mysqli_num_rows($enrolled) > 0){ ?>
+
                           <?php while ($row = mysqli_fetch_array($result)){ ?>
 
                               <div class="alert alert-info">
@@ -93,6 +129,14 @@
                                   <a href="subject-lesson-view.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&lesson_id=<?= $row['lesson_ID']?>" class="btn btn-success btn-sm">View</a>
                               </div>
                             <?php } ?>
+
+                          <?php }else{ ?>
+                              <div class="alert alert-info alert-dismissible">
+                                  <h4><i class="icon fa fa-info"></i> Ops!</h4>
+                                  <p style="margin-bottom: 6px">Kena enroll dlu baru bleh masuk.</p>
+                                  <a href="subject-lesson.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&enroll=true" onclick="return confirm('Are you sure?')" class="btn btn-success">Enroll Now</a>
+                              </div>
+                          <?php } ?>
 
                           <a href="subject-level.php?id=<?=$id?>&name=<?=$name?>" class="btn btn-warning">Back To Subject Level</a>
                       </div>
