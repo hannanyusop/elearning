@@ -115,7 +115,7 @@
                                       <?php if($is_enrolled){ ?>
                                       <p>Progress (<?= $num_completed." of ".$num_lesson." completed" ?>)</p>
                                       <div class="progress xs">
-                                          <div class="progress-bar progress-bar-green" style="width: <?= $percentage ?>%;"></div>
+                                          <div class="progress-bar progress-bar-green progress-bar-striped" style="width: <?= $percentage ?>%;"></div>
                                       </div>
                                       <?php }else{ ?>
                                           <p>Not enroll Yet</p>

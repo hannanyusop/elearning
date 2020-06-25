@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
+
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="assets/css/subject.css">
 
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -49,22 +49,45 @@
   <!-- Full Width Column -->
   <div class="content-wrapper">
     <div class="container">
+
+        <div class="row" style="margin-top: 10px; ">
+            <?php while($data = mysqli_fetch_array($result)){ ?>
+            <div class="col-md-4" style="margin-top: 10px; ">
+                <!-- Box Comment -->
+                <div class="box box-widget">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <img class="img-responsive pad" src="<?= $data['img'] ?>" alt="Photo">
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer box-comments">
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+
+                            <div class="comment-text">
+                      <span class="username">
+                        <?= $data['name'] ?>
+                        <span class="text-muted pull-right">21 Students Erolled</span>
+                      </span>
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                    </div>
+                    <!-- /.box-footer -->
+                    <div class="box-footer">
+                        <a href="subject-level.php?id=<?= $_GET['id'] ?>&name=<?= $data['name'] ?>" class="btn btn-block btn-lg btn-info">View Details</a>
+                    </div>
+                    <!-- /.box-footer -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <?php } ?>
+        </div>
       <!-- Content Header (Page header) -->
       <section class="content-header">
-          <?php while($data = mysqli_fetch_array($result)){ ?>
-                <div class="col-lg">
-                    <div class="small-box bg-red">
-                        <div class="inner">
-                            <h3><?= $data['name'] ?></h3>
-                            <p>Calculation</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-line-chart"></i>
-                        </div>
-                        <a href="subject-level.php?id=<?= $_GET['id'] ?>&name=<?= $data['name'] ?>" class="small-box-footer">More info</a>
-                    </div>
-                </div>
-          <?php } ?>
           <a href="parentHome.php" class="btn btn-warning">Back</a>
       </section>
 
