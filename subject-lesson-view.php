@@ -66,7 +66,7 @@
 
         if(!is_null($prev)){
             if($prev['completed'] == 0){
-                echo "<script>alert('Ops! Need to complete the prev lesson first.');window.location='subject-lesson-view.php?id=$id&name=$name&subject_id=$subject_id&lesson_id=$prev[lesson_ID]'</script>";
+                echo "<script>alert('Ops! Need to complete the prev lesson first.');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id&lesson_id=$prev[lesson_ID]'</script>";
             }
         }
         //end check prev lesson
@@ -77,7 +77,7 @@
                 echo "<script>alert('You already complete this lesson.')</script>";
             }else{
                 $update = mysqli_query($db, "UPDATE enrolls SET completed=1 WHERE lesson_ID=$lesson_id AND student_ID=$id");
-                echo "<script>alert('Successfully mark this lesson as complete.');window.location='subject-lesson-view.php?id=$id&name=$name&subject_id=$subject_id&lesson_id=$lesson_id'</script>";
+                echo "<script>window.location='subject-lesson-view.php?id=$id&name=$name&subject_id=$subject_id&lesson_id=$lesson_id'</script>";
             }
 
         }
@@ -92,7 +92,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-yellow layout-top-nav">
+<body class="hold-transition skin-purple layout-top-nav">
 <div class="wrapper">
 
   <header class="main-header">
@@ -122,14 +122,14 @@
           <iframe class="embed-responsive-item" src="<?=$lesson['link']?>" frameborder="0" allowfullscreen></iframe>
         </div>
 
-          <p>Video URL: <a href="<?=$lesson['link']?>"><?=$lesson['link']?></a> </p>
+           
 
           <div class="form-froup">
           <h3>Description :</h3>
             <p><?=$lesson['description']?></p>
         </div>
         <div class="form-froup">
-            <a href="<?= "subject-lesson.php?id=$id&name=$name&subject_id=$subject_id" ?>" class="btn btn-warning btn-flat margin">Back To Lesson</a>
+            <a href="<?= "subject-lesson.php?id=$id&name=$name&subject_id=$subject_id" ?>" class="btn btn-danger btn-flat margin">Back To Lesson</a>
             <?php if($enrolled['completed'] == 0){ ?>
             <a href="subject-lesson-view.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&lesson_id=<?=$lesson_id?>&complete=true" onclick="return confirm('Are you sure want to mark this as complete?')" class="btn btn-info btn-flat margin">Mark As Complete</a>
             <?php }else{ ?>

@@ -1,9 +1,10 @@
 <?php 
     
       require "parent_auth.php";
-      require "config.php";
+       
 
-      $id = $_GET['id'];
+ 
+     $id = $_GET['id'];
 
       $query=mysqli_query($db, "SELECT * FROM student WHERE student_ID=$id");
 
@@ -11,15 +12,23 @@
             {
    
      
+   
+
   ?>
+ 
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
     <title>Progress Detail</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+  
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -40,7 +49,7 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
@@ -54,7 +63,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
  
 </head>
-<body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-purple fixed sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -64,7 +73,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="fa fa-book"><b> E-Learning</b></span>
+      <span><b> E-Learning</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -72,7 +81,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">      
           <li>
-            <a href="../logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
+            <a href="logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -114,13 +123,13 @@
   <div class="content-wrapper">
    
     <section class="content-header">
-      <h1>
-        
-      </h1>
+      <h3>
+        WELCOME, <?php echo "" .  ucwords($auth['pname']); ?>
+      </h3>
      <!-- phpshowdata -->
            
 
-            <!-- /.box-header -->
+            <!-- /.box-header --> 
             <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -128,40 +137,52 @@
               <div class="box-header-with-border">
                 <h4>Student : <?php echo ucwords($data['fullname'])?> <?php } ?> </h4><br>
               </div>
-                <table class="table table-bordered">
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Subject</th>
-                        <th>Level</th>
-                        <th>Lesson Progress</th>
-                    </tr>
+              <div class="table-responsive">
+                <table  width="98%" id="progress" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <td style="width: 10px">#</td>
+                        <td>Subject</td>
+                        <td>Level</td>
+                        <td>Total Lesson</td>
+                        <td>Lesson Progress</td>
+                      </tr>  
+                    </thead>
 
-            <?php          
+            <?php                 
+             
+      
+              $sql = "SELECT * FROM enrolls as e LEFT JOIN subject as s ON e.subject_ID=s.subject_ID WHERE student_ID = $id  ";
 
-              $id = $_GET['id'];
-
-              //$sql = "SELECT * FROM student as p LEFT JOIN lesson as l ON p.student_ID=l.student_ID LEFT JOIN subject as s ON s.subject_ID=l.subject_ID WHERE student_ID = $id ";
-              $sql = "SELECT * FROM student  WHERE student_ID = $id ";
               $result = mysqli_query($db,$sql);
                 
                 if ($result == TRUE){
-
-
-      
+               
                 $no = 0;
                 while ($data = mysqli_fetch_array ($result))
                 {
-            ?>
+                
+                $lesson_q = mysqli_query($db,"SELECT * FROM lesson WHERE subject_ID=$data[subject_ID]");
+                $num_lesson = mysqli_num_rows($lesson_q);
+                $completed_q = mysqli_query($db, "SELECT * FROM enrolls WHERE subject_ID=$data[subject_ID] AND student_ID=$id AND completed=1");
+                $num_completed = mysqli_num_rows($completed_q);
+
+                $percentage = ($num_completed/$num_lesson)*100;
+
+            ?>  
+             
+            
                     <tr>
                         <td><?php echo ++$no;?></td>
-                        <td><?php echo ucwords($data['subject'])?></td>
+                        <td><?php echo ucwords($data['name'])?></td>
                         <td><?php echo $data['level']?></td>
-                         <td><?php echo $data['progress']?></td>
+                        <td> <?= $num_lesson ?> </td>
+                         <td><?= round ($percentage) ?>% </td>
     
             
 
                     </tr> <?php } ?>
-                </table>
+                </table></div>
 
             <?php 
                 } else {
@@ -172,7 +193,7 @@
           
           </div>
 
-        </div>
+        </div> 
 
       </div>
 
@@ -186,29 +207,30 @@
   </div>  
   <!-- /.content-wrapper -->
 
+  <script>  
+ $(document).ready(function(){  
+      $('#progress').DataTable();  
+ });  
+ </script> 
+
  <footer class="main-footer">
     <div class="pull-right hidden-xs">
         <b> </b> 
     </div>
-    <strong>Copyright &copy; BITS</strong>  Web Dev Project
+     <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
 </footer>
 
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
+ 
+ 
+</body>
+ 
+ <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-</body>
 </html>
 

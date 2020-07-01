@@ -67,7 +67,7 @@
             if($error){
                 echo "<script>alert('Error! Expected database error.');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
             }else{
-                echo "<script>alert('Successfully enrolled subject!');window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
+                echo "<script>window.location='subject-lesson.php?id=$id&name=$name&subject_id=$subject_id'</script>";
             }
 
         }
@@ -84,7 +84,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-yellow layout-top-nav">
+<body  style="background-image: url('img/bg.jpg');" class="hold-transition skin-purple layout-top-nav">
 <div class="wrapper">
 
   <header class="main-header">
@@ -112,7 +112,7 @@
                       <div class="box-header with-border">
                           <i class="fa fa-book"></i>
 
-                          <h3 class="box-title"><?= $subject['name']." LEVEL :". $subject['level'] ?></h3>
+                          <h3 class="box-title"><?= $subject['name']." , Level :". $subject['level'] ?></h3>
                       </div>
                       <!-- /.box-header -->
                       <div class="box-body">
@@ -123,22 +123,22 @@
 
                           <?php while ($row = mysqli_fetch_array($result)){ ?>
 
-                              <div class="alert alert-info">
+                              <div class="alert" style="background-color: #7abceb;">
                                   <h4><i class="icon fa fa-info"></i> <?= $row['title'] ?></h4>
                                   <?= $row['description'] ?><br><br>
-                                  <a href="subject-lesson-view.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&lesson_id=<?= $row['lesson_ID']?>" class="btn btn-success btn-sm">View</a>
+                                  <a style="background-color: #E6E6FA; color: #4B0082" href="subject-lesson-view.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&lesson_id=<?= $row['lesson_ID']?>" class="btn btn-success btn-sm">View</a>
                               </div>
                             <?php } ?>
 
                           <?php }else{ ?>
-                              <div class="alert alert-info alert-dismissible">
-                                  <h4><i class="icon fa fa-info"></i> Ops!</h4>
-                                  <p style="margin-bottom: 6px">Kena enroll dlu baru bleh masuk.</p>
-                                  <a href="subject-lesson.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&enroll=true" onclick="return confirm('Are you sure?')" class="btn btn-success">Enroll Now</a>
+                              <div class="alert alert-dismissible" style="background-color: #4169e1; color: white">
+                                  <h4 style="color: #E6E6FA" ><i class="icon fa fa-info"></i>Getting start? </h4>
+                                  <p style="margin-bottom: 6px  ">Please click this "Enroll Now" button  </p>
+                                  <a style="background-color: #E6E6FA; color: #4B0082" href="subject-lesson.php?id=<?=$id?>&name=<?=$name?>&subject_id=<?=$subject_id?>&enroll=true" onclick="return confirm('Are you sure?')" class="btn" >Enroll Now</a>
                               </div>
                           <?php } ?>
-
-                          <a href="subject-level.php?id=<?=$id?>&name=<?=$name?>" class="btn btn-warning">Back To Subject Level</a>
+<br>
+                          <a href="subject-level.php?id=<?=$id?>&name=<?=$name?>" class="btn btn-danger">Back To Subject Level</a>
                       </div>
                       <!-- /.box-body -->
                   </div>

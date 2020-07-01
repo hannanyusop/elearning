@@ -1,8 +1,8 @@
 <?php
 require "config.php";
-session_start();
+ 
 
-$fullname=$_POST['fullname'];
+$pname=$_POST['pname'];
 $email=$_POST['email'];
 $password =$_POST['password']; 
 
@@ -14,8 +14,8 @@ $password =$_POST['password'];
   $password = mysqli_real_escape_string($db, $_POST["password"]);  
     $password = password_hash($password, PASSWORD_DEFAULT);  
 
-  $sql = "INSERT INTO parent (fullname,email,password)
-  VALUES( '$fullname','$email','$password')";
+  $sql = "INSERT INTO parent (pname,email,password)
+  VALUES( '$pname','$email','$password')";
 
   if(mysqli_query($db, $sql)=== TRUE)
   {

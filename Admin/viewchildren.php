@@ -74,39 +74,7 @@ $sql = "SELECT * FROM parent WHERE parent_ID= $id";
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-        
-          <!-- Notifications: style can be found in dropdown.less -->
-       
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-          
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
+ 
           <li>
             <a href="../logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
           </li>
@@ -153,14 +121,14 @@ $sql = "SELECT * FROM parent WHERE parent_ID= $id";
 <div class="content-wrapper">
     
     <section class="content-header">
-      <h1> 
+      <br><h1> 
         ADMIN
-      </h1>
+      </h1><br>
       <div class="row">
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">List of Children for <?php echo $data['fullname']?>    
+              <h3 class="box-title">List of Children for <?php echo $data['pname']?>    
             <?php } else {
           echo "() Result";
           }
@@ -176,15 +144,16 @@ $sql = "SELECT * FROM parent WHERE parent_ID= $id";
                   <th style="width: 10px">#</th>
                    
                   <th>Fullname</th>
-                  <th>Age</th>
-                  <th>Progress</th>
+                  <th>Subject</th>
+                  <th>Level</th>
+                  <th>Complete</th>
                  </tr>
 
       <?php
        
         $id = $_GET['id'];
                               
-        $sql = "SELECT * FROM student as s LEFT JOIN parent as p ON s.parent_ID=p.parent_ID  WHERE p.parent_ID= $id";
+        $sql = "SELECT * FROM student as s LEFT JOIN parent as p ON s.parent_ID=p.parent_ID LEFT JOIN enrolls as e ON e.student_ID=s.student_ID LEFT JOIN subject as b ON e.subject_ID=b.subject_ID WHERE p.parent_ID= $id GROUP BY level";
         $result = mysqli_query($db,$sql);
         if ($result == TRUE){
    
@@ -194,9 +163,10 @@ $sql = "SELECT * FROM parent WHERE parent_ID= $id";
             ?>
                 <tr>
                   <td><?php echo ++$no;?></td>
-                  <td><?php echo ucwords($data['name'])?></td>
-                  <td><?php echo $data['age']?></td>
-                  
+                  <td><?php echo ucwords($data['fullname'])?></td>
+                  <td><?php echo $data['name']?></td>
+                  <td><?php echo $data['level']?></td>
+                  <td><?php echo $data['completed']?></td>
 <td></td>
         
 

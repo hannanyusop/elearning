@@ -47,7 +47,7 @@ h1 {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: var(--primary-color) url('kidsps.jpg') no-repeat center
+	background: var(--primary-color) url('img/kidsps.jpg') no-repeat center
 		center/cover;
 }
 
@@ -118,7 +118,7 @@ h1 {
 <body>
 	<section class="showcase">
 			<div class="image">
-				<img src="kidsps.jpg">
+				<img src="img/kidsps.jpg">
 			</div>
 			<div class="content">
 				<h1>Welcome To E-learning</h1>

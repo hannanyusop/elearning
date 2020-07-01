@@ -70,36 +70,7 @@
       
 
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-        
-          <!-- Notifications: style can be found in dropdown.less -->
        
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-          
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                           
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
           <li>
              <a href="../logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
           </li>
@@ -141,10 +112,10 @@
   <div class="content-wrapper">
    
     <section class="content-header">
-      <h1>
-        Admin
+      <br><h1>
+        ADMIN 
       </h1>
-      <div class="row">
+       <br><div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header with-border">
@@ -156,7 +127,7 @@
             {
             ?>
 
-            Subject : <?php echo $data['subject']?> <br> 
+            Subject : <?php echo $data['name']?> <br> 
             &nbspLevel : <?php echo $data['level']?>
 
             
@@ -167,7 +138,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-           <form action="upload_process.php " method="post" role="form"> 
+          <form action="upload_process.php " method="post" role="form"> 
               <input type="hidden" name="subjectID" id="subjectID" value="<?php echo $data['subject_ID'] ?> <?php } ?> " > 
               <div class="box-body">
                 <div class="form-group">

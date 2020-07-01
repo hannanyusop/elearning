@@ -1,6 +1,6 @@
-<?php require "parent_auth.php"; ?>
-<?php
-require "config.php";
+<?php require "parent_auth.php"; 
+ 
+ 
 
 $parent= $auth["parent_ID"];
 
@@ -64,7 +64,7 @@ $result = mysqli_query($db,$sql);
         }
     </style>
 </head>
-<body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-purple fixed sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
     <header class="main-header">
@@ -80,37 +80,7 @@ $result = mysqli_query($db,$sql);
             <!-- Sidebar toggle button-->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <!-- Notifications: style can be found in dropdown.less -->
-                    <!-- Tasks: style can be found in dropdown.less -->
-                    <li class="dropdown tasks-menu">
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 9 tasks</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <!-- Task item -->
-                                        <a href="#">
-                                            <h3>
-                                                Design some buttons
-                                                <small class="pull-right">20%</small>
-                                            </h3>
-                                            <div class="progress xs">
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only">20% Complete</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <!-- end task item -->
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all tasks</a>
-                            </li>
-                        </ul>
-                    </li>
+                 
                     <li>
                         <a href="logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
                     </li>
@@ -141,13 +111,12 @@ $result = mysqli_query($db,$sql);
     </aside>
     <!-- =============================================== -->
     <div class="content-wrapper">
-
+        <section class="content-header">
         <div style="margin: 15px">
-            WELCOME <?php echo "" .  ucwords($auth['name']); ?><br>
-            <h3>List of Children</h3>
+            <h3 > WELCOME, <?php echo "" .  ucwords($auth['pname']); ?> </h3><br>
+                
             <div class="row">
-                <div class="col-md-6">
-                </div>
+                
                 <div class="col-md-6">
                     <form action="addchild_process.php" method="post">
                         <div class="modal modal-success fade" id="modal-success">
@@ -161,13 +130,13 @@ $result = mysqli_query($db,$sql);
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input name="name" class="form-control" id="title" placeholder="Name">
+                                            <input name="fullname" class="form-control" id="title" placeholder="Name" required>
                                         </div>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Age</label>
-                                            <input name="age" class="form-control" id="title" placeholder="Age ex 8 years">
+                                            <input name="age" class="form-control" id="title" placeholder="Age ex 8 years" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -181,27 +150,28 @@ $result = mysqli_query($db,$sql);
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> 
             <div class="row">
 
+            <div class="box-header-with-border">
                 <?php while ($data = mysqli_fetch_array ($result)) { ?>
                 <div class="col-md-4">
                     <!-- Widget: user widget style 1 -->
                     <div class="box box-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-aqua-active">
+                        <div class="widget-user-header bg-purple-active">
                             <h3 class="widget-user-username"><?php echo ucwords($data['fullname'])?></h3>
                             <h5 class="widget-user-desc"><?= $data['age']?> Years Old</h5>
                         </div>
                         <div class="widget-user-image">
-                            <img class="img-circle" src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png" alt="User Avatar">
+                            <img class="img-circle" src="img/avatar.png" alt="User Avatar">
                         </div>
                         <div class="box-footer">
                             <div class="row">
                                 <!-- /.col -->
                                 <div class="col-md-4 col-md-offset-4">
                                     <div class="description-block">
-                                        <a href="enrollsub.php?id=<?=$data['student_ID']?>" class="btn btn-info btn-flat margin" onclick="return confirm('Are Sure Want To Enroll As <?=  ucwords ($data["name"]) ?>?');">Enroll Me</a>
+                                        <a href="enrollsub.php?id=<?=$data['student_ID']?>" class="btn btn-primary btn-flat margin" onclick="return confirm('Are Sure Want To Enroll As <?=  ucwords ($data["fullname"]) ?>?');">Enroll Me</a>
                                     </div>
                                     <!-- /.description-block -->
                                 </div>
@@ -214,17 +184,19 @@ $result = mysqli_query($db,$sql);
                 </div>
                 <?php } ?>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal-success">Add Children</button>
-                </div>
-            </div>
+        </div>
+            
         </div>
 
+        </section>
 
         <section class="content-header">
 
-            <!-- phpshowdata -->
+           <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button type="button" class=" btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal-success">Add Children</button>
+                </div>
+            </div> <!-- phpshowdata -->
 
     </div>
 </div>
@@ -245,15 +217,8 @@ $result = mysqli_query($db,$sql);
 <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
+ 
+ <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>

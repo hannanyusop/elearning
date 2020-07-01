@@ -57,39 +57,7 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-        
-          <!-- Notifications: style can be found in dropdown.less -->
-       
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-          
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
+ 
           <li>
             <a href="../logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
           </li>
@@ -138,7 +106,7 @@
 
        
                               
-      $sql = "SELECT * FROM parent ORDER BY fullname ASC";
+      $sql = "SELECT * FROM parent ORDER BY pname ASC";
       $result = mysqli_query($db,$sql);
       if ($result == TRUE){
       
@@ -146,9 +114,9 @@
 <div class="content-wrapper">
    
     <section class="content-header">
-      <h1>
+      <br><h1>
         ADMIN
-      </h1>
+      </h1><br>
       <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -173,7 +141,7 @@
             ?>
                 <tr>
                   <td><?php echo ++$no;?></td>
-                  <td><?php echo ucwords($data['fullname'])?></td>
+                  <td><?php echo ucwords($data['pname'])?></td>
                   <td><?php echo $data['email']?></td>
                   
 
@@ -185,32 +153,6 @@
 
 
           </td>
-        
-<!-- Modal 
-<td><button type="button" class="btn-success btn-flat margin" data-toggle="modal" data-target="#myModal">Enroll Me</button>
-
-  
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>This is a small modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-          <?php // echo '<a href="enrollsub.php?id='.$data['student_ID'].'"> '?><button type="button"  class="btn btn-success" data-dismiss="modal">Confirm</button></a> 
-
-        </div>
-      </div>
-    </div>
-  </div>
-</td>
-
--->
                   
                 </tr> <?php } ?>  
                 
@@ -225,7 +167,7 @@
     <section class="content">
      
 
-
+    </section>  
     </section>
     <!-- /.content -->
   </div>

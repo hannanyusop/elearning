@@ -19,7 +19,7 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
 
-
+ 
     <?php
 
     if(isset($_GET['name']) && isset($_GET['id'])){
@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-yellow layout-top-nav">
+<body class="hold-transition skin-purple layout-top-nav">
 <div class="wrapper">
 
   <header class="main-header">
@@ -75,19 +75,21 @@
       <section class="content-header">
 
 
-          <div class="row docs-premium-template">
+          <div class="row" style="margin-top: 100px;">
               <?php while($data = mysqli_fetch_array($result)){ ?>
                 <div class="col-sm-12 col-md-6">
                   <div class="box box-solid">
+                  
                       <div class="box-body">
                           <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
-                              <?= $data['name'] ?> LEVEL : <?= $data['level']?>
+                               <div style="float: left;"><?= $data['name']?></div>
+                               <div style="float: right;">Level : <?= $data['level']?></div><br>
                           </h4>
                           <div class="media">
                               <div class="media-body">
                                   <div class="clearfix">
                                       <p class="pull-right">
-                                          <a href="subject-lesson.php?id=<?= $_GET['id'] ?>&name=<?= $name ?>&subject_id=<?= $data['subject_ID'] ?>" class="btn btn-success btn-sm ad-click-event">
+                                          <a href="subject-lesson.php?id=<?= $_GET['id'] ?>&name=<?= $name ?>&subject_id=<?= $data['subject_ID'] ?>" class="btn btn-primary btn-sm ad-click-event">
                                               Go To Lesson
                                           </a>
                                       </p>
@@ -115,7 +117,7 @@
                                       <?php if($is_enrolled){ ?>
                                       <p>Progress (<?= $num_completed." of ".$num_lesson." completed" ?>)</p>
                                       <div class="progress xs">
-                                          <div class="progress-bar progress-bar-green progress-bar-striped" style="width: <?= $percentage ?>%;"></div>
+                                          <div class="progress-bar progress-bar-primary progress-bar-striped" style="width: <?= $percentage ?>%;"></div>
                                       </div>
                                       <?php }else{ ?>
                                           <p>Not enroll Yet</p>
@@ -123,7 +125,7 @@
                                   </div>
                               </div>
                           </div>
-                      </div>
+                      </div> 
                   </div>
               </div>
               <?php } ?>
@@ -131,7 +133,7 @@
 
         <div class="col-lg">
 
-            <a href="enrollsub.php?id=<?= $_GET['id'] ?>" class="btn btn-warning">Back</a>
+           <br> <a href="enrollsub.php?id=<?= $_GET['id'] ?>" class="btn btn-danger">Back</a>
       </section>
 
       <!-- Main content -->

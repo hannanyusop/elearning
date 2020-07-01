@@ -7,6 +7,10 @@
     <title>Progress</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
@@ -27,7 +31,6 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
@@ -41,7 +44,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
  
 </head>
-<body class="hold-transition skin-blue fixed sidebar-mini">
+<body class="hold-transition skin-purple fixed sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
@@ -51,7 +54,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="fa fa-book"><b> E-Learning</b></span>
+      <span><b> E-Learning</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -102,7 +105,7 @@
    
     <section class="content-header">
       <h3>
-        WELCOME <?php echo "" .  ucwords($auth['name']); ?>
+        WELCOME, <?php echo "" .  ucwords($auth['pname']); ?>
       </h3>
             <!-- phpshowdata -->
             <?php
@@ -124,15 +127,18 @@
           <div class="box">
             <div class="box-body">
               <div class="box-header-with-border">
-                <h4>List of children's progress</h4><br>
+                <h4>List of Children</h4><br>
               </div>
-                <table class="table table-bordered">
-                    <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Fullname</th>
-                        <th>Age</th>
-                        <th>Lesson Progress</th>
-                    </tr>
+                <div class="table-responsive">
+                <table width="98%" id="progress" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <td style="width: 10px">#</td>
+                        <td>Fullname</td>
+                        <td>Age</td>
+                         <td>Action</td>
+                      </tr>  
+                    </thead>
 
             <?php
                 $no = 0;
@@ -146,13 +152,19 @@
     
             <?php echo' <td>  
                             <a href="progress_detail.php?id='.$data['student_ID'].'"> '?>
-                            <button type = "button" class="btn-success btn-flat margin"> View 
+                            <button type = "button" class="btn-success btn-flat margin"> View Progress
                             </button>
                             </a>
+                            <?php  echo '<a href="delete.php?id='.$data['student_ID'].'"> '?>
+                            <button type = "button"  onclick="return confirm('Are Sure Want Delete ');" class="btn-danger btn-flat margin"> Delete Student
+                            </button> 
+                             
+                            </a> 
                         </td>
 
                     </tr> <?php } ?>
-                </table>
+
+                </table></div>
 
             <?php 
                 } else {
@@ -181,22 +193,22 @@
     <div class="pull-right hidden-xs">
         <b> </b> 
     </div>
-    <strong>Copyright &copy; BITS</strong>  Web Dev Project
+      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
 </footer>
 
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
+</body>
+<script>  
+ $(document).ready(function(){  
+      $('#progress').DataTable();  
+ });  
+ </script> 
+  
+ <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>

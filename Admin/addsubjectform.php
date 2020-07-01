@@ -56,40 +56,7 @@
       
 
       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-        
-          <!-- Notifications: style can be found in dropdown.less -->
-       
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-          
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
+      
           <li>
              <a href="../logout.php" onclick="return confirm('Are you sure?');" >LOGOUT <i class="fa fa-gears"></i></a>
           </li>
@@ -131,9 +98,9 @@
   <div class="content-wrapper">
    
     <section class="content-header">
-      <h1>
-        Admin
-      </h1>
+      <br><h1>
+        ADMIN
+      </h1><br>
       <div class="row">
         <div class="col-md-12">
           <div class="box box-primary">
@@ -145,16 +112,13 @@
             <form role="form" action="addsubjectform.php" method="post">
               <div class="box-body">
                 <div class="form-group">
-                 <label>Level</label>
-                  <select id="subject" name="subject" class="form-control">
-                    <option>English</option>
-                    <option>Mathematics</option>
-                     
-                  </select>
+                 <label>Subject</label>
+                  <input type="text" id="subject" name="subject" class="form-control" required="" >
+                   
                 </div>
                 <div class="form-group">
                  <label>Level</label>
-                  <select id="level" name="level" class="form-control">
+                  <select id="level" name="level" class="form-control" required="">
                     <option>Easy</option>
                     <option>Medium </option>
                     <option>Hard</option>
@@ -224,7 +188,7 @@
        
 
 
-      $sql = "INSERT INTO subject (subject,level) VALUES ('$subject','$level')";
+      $sql = "INSERT INTO subject (name,level) VALUES ('$subject','$level')";
 
       if(mysqli_query($db, $sql)=== TRUE)
 

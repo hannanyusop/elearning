@@ -26,7 +26,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   </head>
-  <body style="background-image: url('bg.jpg');"class="hold-transition login-page">
+  <body style="background-image: url('img/bg-class.jpg');"class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo"><br>
         <a href="">
@@ -62,10 +62,11 @@
         <!-- /.social-auth-links -->
         
         <br>
-        <a href="register.php" class="text-center">Register a new account
-        </a>
+        
       </div>
       <!-- /.login-box-body -->
+      <a href="register.php" style="color: black"> <h5> <u>Register a new account</u></h5>
+        </a>
     </div>
     <!-- /.login-box -->
     <!-- jQuery 3 -->

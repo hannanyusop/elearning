@@ -4,14 +4,14 @@ require "parent_auth.php";
 
 if(isset($_POST['submit'])) { 
 
-$name=$_POST['name'];
+$fullname=$_POST['fullname'];
 $age=$_POST['age'];
 $parent= $auth["parent_ID"];
  
  
 
-  $sql = "INSERT INTO student (name,age,parent_ID)
-  VALUES( '$name','$age','$parent')";
+  $sql = "INSERT INTO student (fullname,age,parent_ID)
+  VALUES( '$fullname','$age','$parent')";
 
  if(mysqli_query($db, $sql)){
     
